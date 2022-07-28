@@ -8,7 +8,8 @@ const options = minimist(process.argv.slice(2))
 
 if (process.stdin.isTTY) {
   // $ my-npm Hello, World!
-  show(options._)
+  const line = [options._.join(' ')]
+  show(line)
 } else {
   const lines = []
   const rl = readline.createInterface(process.stdin)
@@ -17,30 +18,41 @@ if (process.stdin.isTTY) {
     lines.push(line)
   })
   rl.on('close', () => {
+    // 同期処理化？
     show(lines)
+    // カーソルを表示させる
   })
 }
-// TODO 受け取った配列のサイズを取得する
-// TODO 1文字ずつ色を変える
-// TODO 要素ごとに改行して表示する
+
 // TODO カウントの使い方を考える
-// TODO 最初は表示消去＆カーソル戻しをしない or 最初は要素数分改行する？
 // TODO カラーセットを定義
-// TODO アニメーション中カーソルを消す
 function show (texts, count = 0) {
+  const textsSize = texts.length
   if (count === 0) {
-    console.log(texts.map(text => text).join('\n'))
+    console.log(texts.map(text => effect(text)).join('\n'))
   } else {
-    console.log('\u001B[' + texts.length + 'F\u001B[G\u001B[2K' + texts.map(text => chalk.bgBlue(text)).join('\n'))
+    // TODO アニメーション中カーソルを消す
+    // 空欄で改行されてしまうのを修正
+    console.log('\u001B[' + textsSize + 'F\u001B[G\u001B[2K' + texts.map(text => effect(text)).join('\n'))
   }
   setTimeout(() => {
-    // TODO いつまで繰り返す？
-    if (count < texts.length) {
+    // TODO ループをいつまで繰り返すか決める
+    if (count < 30) {
       count++
       show(texts, count)
     }
     // TODO 実行間隔をカラーセットから渡す
-  }, 1000)
+  }, 100)
+}
+// クラスorモジュールに切り出す
+
+function effect (text) {
+  const textArray = text.split('')
+  return textArray.map(letter => chalk.rgb(...getRandomRGB())(letter)).join('')
+  // rgbにカラーセットをランダムで渡す
 }
 
-// クラスorモジュールに切り出す
+function getRandomRGB () {
+  // もっとシンプルに書けない？
+  return [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]
+}

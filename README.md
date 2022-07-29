@@ -1,1 +1,1 @@
-# my-npm
+# seasonify

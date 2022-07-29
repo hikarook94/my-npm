@@ -1,22 +1,25 @@
 {
-  "name": "my-npm",
+  "name": "seasonify",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "seasonify": "index.js"
+  },
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hikarook94/my-npm.git"
+    "url": "git+https://github.com/hikarook94/seasonify.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "hikarook94",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hikarook94/my-npm/issues"
+    "url": "https://github.com/hikarook94/seasonify/issues"
   },
-  "homepage": "https://github.com/hikarook94/my-npm#readme",
+  "homepage": "https://github.com/hikarook94/seasonify#readme",
   "dependencies": {
     "chalk": "^5.0.1",
     "minimist": "^1.2.6"

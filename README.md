@@ -13,4 +13,4 @@ or
 ```
 $ echo Hello, world! | seasonify
 ```
-And then, you'll get the text with the colors of the current season.
+And then, you'll get the text with the colors of the current Japanese season.

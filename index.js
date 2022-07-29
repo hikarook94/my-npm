@@ -13,10 +13,10 @@ class App {
   run () {
     const animation = new Animation(this.colorset)
     const lines = []
-    if (process.stdin.isTTY) { // $ my-npm Hello, World!
+    if (process.stdin.isTTY) { // execute like this: $ seasonify Hello, World!
       lines.push(minimist(process.argv.slice(2))._.join(' '))
       animation.show(lines)
-    } else { // $ echo Hello, World! | my-npm
+    } else { // execute like this: $ echo Hello, World! | seasonify
       const rl = readline.createInterface(process.stdin)
       rl.on('line', (line) => {
         lines.push(line)

@@ -7,7 +7,6 @@ import colorsets from './lib/colorsets.js'
 
 class App {
   constructor () {
-    this.options = minimist(process.argv.slice(2))
     this.colorset = this.#getColorset(colorsets)
   }
 
@@ -15,7 +14,7 @@ class App {
     const animation = new Animation(this.colorset)
     const lines = []
     if (process.stdin.isTTY) { // $ my-npm Hello, World!
-      lines.push(this.options._.join(' '))
+      lines.push(minimist(process.argv.slice(2))._.join(' '))
       animation.show(lines)
     } else { // $ echo Hello, World! | my-npm
       const rl = readline.createInterface(process.stdin)
